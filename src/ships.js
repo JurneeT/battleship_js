@@ -2,9 +2,10 @@ import React, {useState} from 'react';
 import Button from "@material-ui/core/Button";
 
 
-function selectShip() {
-    
+function SelectShip() {
+
     return(
+        
         <div className="ships">
             <Button className="ship-button" variant="outlined" id="battleship" onClick={()=> alert("hi")}>
                 {"BattleShip 5-Nodes"}
@@ -27,4 +28,4 @@ function selectShip() {
         </div>
     )
 }
-export default selectShip;
+export default SelectShip;

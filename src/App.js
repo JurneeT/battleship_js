@@ -8,41 +8,25 @@ import { FormControl } from '@material-ui/core';
 import { Select } from '@material-ui/core';
 import { FormHelperText } from '@material-ui/core';
 
-import selectShip from './components/ships.js'
+import SelectShip from './ships.js'
 import { Box } from '@material-ui/core';
 
 function App() {
   return (
+    <body style={{
+      backgroundColor:  "#a6ccf2	"}}>
+
     <div className="App">
-      <img src={logo}  width="25%" height="25%" class="logo" alt="Bison Boggle Logo" /> 
-      <h1 id="">Battle Ship</h1>
-
-  <div className="ships">
-   <Button className="ship-button" variant="outlined" id="battleship">
-        {"BattleShip 5-Nodes"}
-      </Button>
-      <Button className="ship-button" variant="outlined" id="cruiser">
-        {"Cruiser 4-Nodes"}
-      </Button>
-      <Button className="ship-button" variant="outlined" id="sub">
-        {"Submarine 3-Nodes"}
-      </Button>
-      <Button className="ship-button" variant="outlined" id="destroyer">
-        {"Destroyer 2-Nodes"}
-      </Button>   
-      <h1 id="user-prompt">
-        <div id="prompt">Please Select A Ship To Place</div>
-        <Button variant="outlined" id="play-button">
-          {"Play Game"}
-        </Button>
-      </h1> 
-    </div>
-
+       <img src={logo}  width="25%" height="25%" class="logo" alt="Bison Boggle Logo" /> 
+      <h1 id="">Battle Ship</h1> 
+    
+      <SelectShip/>
+      
   <div className="Input-select-size">
   </div>
 
 
-  <div className="Board-div">
+   <div className="Board-div">
     <Grid container spacing={24} justify="center">
         <Grid item xs={12}>
            <Grid container spacing={1} justify="space-around">
@@ -596,13 +580,14 @@ function App() {
     </Grid>
     <Button id="swap-turn" variant="outlined">
       {"Change Turn"}
-    </Button>
+    </Button> 
 
-  </div>
+    </div>
 
  
     </div>
+    </body>
   );
 }
 
-export default App;
+export default App; 
