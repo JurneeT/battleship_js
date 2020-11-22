@@ -2,11 +2,7 @@
 const Guess = {
     prevHits: [],
     cpuGuesses: [],
-    prevDirection: {
-      direction: 0,
-      hit: false,
-    },
-    cpuGuessDirection: 0,
+    playerGuesses:[]
   };
   
   // variables used thusfar ///////////////////////
@@ -77,6 +73,7 @@ const Guess = {
     - she ship array is updated with the indexes of the board
     CPU does this but with a random number generator
     */
+  
     function selectShip(button_id) {
     if (button_id === "battleship") {
       shipLength = 5;
@@ -202,15 +199,6 @@ const Guess = {
   
     function SetDirection(){
       dir = prompt("Select an adjacent space left, right, up, or down to place your Battleship in selected direction");
-  
-      /*if (
-        start + 10 !== dir &&
-        start - 10 !== dir &&
-        start + 1 !== dir &&
-        start - 1 !== dir
-      ) {
-        prompt("Not a valid selection");
-      }*/
       
       if (dir == start - 1){
         for (let i = shipLength; i > 0; i--){
@@ -220,13 +208,13 @@ const Guess = {
       }
   
       //selected cell to the right
-      if (start == dir - 1){
+      else if (parseInt(start) == parseInt(dir) - 1){
         for (let i = 0; i < shipLength-1; i++){
-          gameBoard[i+(dir-1)] = shipLength;
+          gameBoard[i+(parseInt(dir)-1)] = shipLength;
         }
       }
       //selected cell to the bottom
-      if (parseInt(dir) == parseInt(start) + 10){
+      else if (parseInt(dir) == parseInt(start) + 10){
         let x = parseInt(dir);
         for (let i = 0; i < shipLength-1; i++){
           gameBoard[x-1] = shipLength;
@@ -235,13 +223,22 @@ const Guess = {
         }
       }
       //selected cell to the top
-      if (dir == start - 10){
+      else if (dir == start - 10){
         let x = dir;
         for (let i = 0; i < shipLength-1; i++){
           gameBoard[x-1] = shipLength;
           console.log(x);
           x -= 10;
         }
+      }
+      else if (
+        start + 10 !== dir &&
+        start - 10 !== dir &&
+        start + 1 !== dir &&
+        start - 1 !== dir
+      ) {
+        console.log("NOT A VALID SELECTION");
+        SetDirection();
       }
       
     }
@@ -250,7 +247,7 @@ const Guess = {
     //disable buttons
     //create and display display CPU Board
     swapTurn();
-    prompt("Its Your Turn! FIRE AWAY!");
+    //console.log("Its Your Turn! FIRE AWAY!");
     //guess function goes here
   }
   ////////////////////////////////////////////////////////
@@ -258,12 +255,13 @@ const Guess = {
     if (currentTurn === "cpu") {
       //display CPUboard
       currentTurn = "user";
-      prompt("It's Your Turn! FIRE AWAY!");
+      checkHit();
+  
     } else if (currentTurn === "user") {
       //display Player Board
       //CPU guess
       currentTurn = "cpu";
-      prompt("CPU's TURN! PREPARE TO BE FIRED ON IN 3... 2... 1... ");
+      console.log("CPU's TURN! PREPARE TO BE FIRED ON IN 3... 2... 1... ");
     }
   }
   
@@ -279,13 +277,38 @@ const Guess = {
   }
   ///////////////////////////////////////////////////////
   //function to checj hit
-  function checkHit(guess_cell_id) {
-    if (gameBoard[guess_cell_id - 1] == null){
-      console.log("Miss");
-    }
-    else if (gameBoard[guess_cell_id - 1] !== null){
-      console.log("Hit");
-      Guess.prevHits.push(guess_cell_id);
+  function checkHit() {
+    if (currentTurn == "user"){
+      let cell = prompt("It's Your Turn! FIRE AWAY!");
+      //change gameBoard to cpuBoard
+      if(Guess.playerGuesses.includes(parseInt(cell)) == true){
+        console.log("You Already Shot Here");
+        checkHit();
+      }else if (Guess.playerGuesses.includes(parseInt(cell)) == false){
+        if (gameBoard[cell - 1] == null){
+          console.log("Miss");
+          Guess.playerGuesses.push(cell);
+        //change gameBoard to cpuBoard
+      }else if (gameBoard[cell - 1] !== null){
+        console.log("Hit");
+        Guess.prevHits.push(cell);
+        Guess.playerGuesses.push(cell);
+      }
+      swapTurn();
+      }
+      
+    } 
+    else if (currentTurn == "cpu"){
+      //cpu guess function
+      let cell = 0;
+      if (gameBoard[cell - 1] == null){
+        console.log("Miss");
+        Guess.cpuGuesses.push(cell);
+      }else if (gameBoard[cell - 1] !== null){
+        console.log("Hit");
+        Guess.cpuGuesses.push(cell);
+      }
+      swapTurn();
     }
   }
   
@@ -314,7 +337,7 @@ const Guess = {
   console.log(gameBoard);
   
   
-  let cell = prompt("Guess cell");
-  checkHit(cell);
+  playGame();
+  
   
   
