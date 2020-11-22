@@ -1,1 +1,33 @@
 // First commit
+class CPU 
+{
+  constructor(name)
+  {
+    this.name = name;
+  }
+
+  generate_random_attack(user_input)
+  {
+    return Math.floor(Math.random() * Math.floor(user_input))
+  }
+ 
+
+}
+
+
+const cpu1 = new CPU('Mark');
+
+//cpu1.generate_random_attack(7)
+
+
+
+var testgrid = [
+
+               [0,0,1,2],
+               [0,0,1], 
+               [0,0,1]
+
+               ];
+
+
+testgrid[0].length
