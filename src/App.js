@@ -25,7 +25,6 @@ function App() {
   <div className="Input-select-size">
   </div>
 
-
    <div className="Board-div">
     <Grid container spacing={24} justify="center">
         <Grid item xs={12}>
