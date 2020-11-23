@@ -7,36 +7,22 @@ import { Button } from '@material-ui/core';
 import { FormControl } from '@material-ui/core';
 import { Select } from '@material-ui/core';
 import { FormHelperText } from '@material-ui/core';
-
-import selectShip from './components/ships.js'
+import SelectShip from './components/ships.js'
 import { Box } from '@material-ui/core';
 
 function App() {
   return (
+    
+      
+      
     <div className="App">
+      
+        
       <img src={logo}  width="25%" height="25%" class="logo" alt="Bison Boggle Logo" /> 
       <h1 id="">Battle Ship</h1>
+      <SelectShip/>
 
-  <div className="ships">
-   <Button className="ship-button" variant="outlined" id="battleship">
-        {"BattleShip 5-Nodes"}
-      </Button>
-      <Button className="ship-button" variant="outlined" id="cruiser">
-        {"Cruiser 4-Nodes"}
-      </Button>
-      <Button className="ship-button" variant="outlined" id="sub">
-        {"Submarine 3-Nodes"}
-      </Button>
-      <Button className="ship-button" variant="outlined" id="destroyer">
-        {"Destroyer 2-Nodes"}
-      </Button>   
-      <h1 id="user-prompt">
-        <div id="prompt">Please Select A Ship To Place</div>
-        <Button variant="outlined" id="play-button">
-          {"Play Game"}
-        </Button>
-      </h1> 
-    </div>
+      
 
   <div className="Input-select-size">
   </div>
@@ -600,8 +586,10 @@ function App() {
 
   </div>
 
- 
     </div>
+
+
+
   );
 }
 
