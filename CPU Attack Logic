@@ -18,7 +18,7 @@ let dir = 0;
 let shipLength = 0;
 let gameBoard = [];
 let computerBoard = [];
-let gameOver = false;
+
 for (let i = 0; i < 100; i++) 
 {
   gameBoard[i] = null;
@@ -69,7 +69,7 @@ let cpuNodes = [];
 let guess = 0;
 
 
-//console.log(gameBoard)
+
 
 
 
@@ -302,6 +302,8 @@ function SetDirection()
 }
 
 // Player turn is even, CPU turn is Odd1
+
+var gameOver = false;
 function playGame(CPU,turn) 
 {
   while (gameOver == false)
@@ -309,13 +311,15 @@ function playGame(CPU,turn)
     if ( turn % 2 == 0)
     {
       console.log("Players turn");
-      checkHit(Player.generate_attack());
+      checkHit(turn,Player.generate_attack());
+      
       turn += 1;
     }
     else
     {
       console.log("CPU's turn");
-      checkHit(CPU.generate_random_attack());
+      var cpu_attack = CPU.generate_random_attack(cpu_hits,cpu_misses);
+      checkHit(turn,cpu_attack);
       turn += 1;
     }
     if (Guess.prevHits.length == 14)
@@ -341,17 +345,21 @@ function winCheck() {
 }
 ///////////////////////////////////////////////////////
 //function to checj hit
-function checkHit(guess_cell_id) 
+function checkHit(turn,guess_cell_id) 
 {
-  if (gameBoard[guess_cell_id - 1] == null){
+  if (gameBoard[guess_cell_id - 1] == null)
+  {
     console.log("Miss");
+    cpu_misses[turn] = guess_cell_id;
+    console.log("The Miss Map",cpu_misses);
   }
-  else if (gameBoard[guess_cell_id - 1] !== null){
+  else if (gameBoard[guess_cell_id - 1] !== null)
+  {
     console.log("Hit");
     Guess.prevHits.push(guess_cell_id);
+    cpu_hits[turn] = guess_cell_id;
+    console.log('The Hit Map',cpu_hits);
   }
-
-  console.log('There are currently:', Guess.prevHits.length, 'hits' );
 }
 
 function populate_player_grid()
@@ -394,7 +402,6 @@ function GameStart()
       console.log("CPU goes first");
     }
   return turn;
-
 }
 
 
@@ -407,17 +414,72 @@ class CPU
     this.name = name;
   }
 
-  generate_random_attack()
+  generate_random_attack(hits,misses)
   {
-    return Math.floor(Math.random() * (100 - 0) + 0);
+    // Create empty arrays for hits and misses
+    var the_hits = [];
+    var the_misses = [];
+    // Populate the hits array
+    for (var key in hits) 
+    {
+      var val = hits[key];
+      the_hits.push(val);
+    }
+    // Populate the misses array
+    for (var key in misses) 
+    {
+      var val = misses[key];
+      the_misses.push(val);
+    }
+    // Get a random value
+    var x =  Math.floor(Math.random() * (100 - 0) + 0);
+
+    // If the value is in hits or in misses
+    if (the_hits.includes(x) == true || the_misses.includes(x))
+    {
+      var untouched_cell = false;
+      // continue to search for an open space
+      while (untouched_cell == false)
+      {
+        x = Math.floor(Math.random() * (100 - 0) + 0);
+        if (the_hits.includes(x) == true || the_misses.includes(x))
+        {
+          continue;
+        }
+        else
+        {
+          untouched_cell = true;
+        }
+      }
+    }
+    return x;
   }
   
-
+  generate_targeted_attack(hits)
+  {
+    if (hits.length == 0)
+    {
+      console.log("Its's empty");
+    }
+    else
+    {
+      console.log("It's not empty");
+    }
+    
+  }
 
 }
 
 
 
+
+
 const cpu1 = new CPU('Mark');
+
+var cpu_hits = { };
+var cpu_misses = { };
+
+
+
 
 playGame(cpu1,GameStart());
