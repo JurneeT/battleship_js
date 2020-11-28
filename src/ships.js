@@ -1,31 +1,33 @@
 import React, {useState} from 'react';
 import Button from "@material-ui/core/Button";
+import { PlaceShip } from './cell.js'
+import shipState from './App.js';
 
 let shipLength = 0;
 let start = 0;
 
-function SelectShip() {
+function SelectShip({setShipStatePlace}) {
 
     function selectShip(e){
         if (e.currentTarget.id === "battleship"){
-            shipLength = 5;
-            start = prompt("Select a start space place your Battleship");
-            alert(shipLength);
-        //PlaceShip();
+            window.shipLength = 5;
+            setShipStatePlace(true);
+            alert("Select a start space to place your Battleship");
+            //PlaceShip();
       } else if (e.currentTarget.id === "cruiser") {
-            shipLength = 4;
-            start = prompt("Select a start space place your Cruiser");
-            alert(shipLength);
+            window.shipLength = 4;
+            setShipStatePlace(true);
+            alert("Select a start space to place your Cruiser");
             //PlaceShip();
       } else if (e.currentTarget.id  === "sub") {
-            shipLength = 3;
-            start = prompt("Select a start space place your Sub");
-            alert(shipLength);
+            window.shipLength = 3;
+            setShipStatePlace(true);
+            alert("Select a start space to place your Sub");
             //PlaceShip();
       } else if (e.currentTarget.id  === "destroyer") {
-            shipLength = 2;
-            start = prompt("Select a start space place your Destroyer");
-            alert(shipLength);
+            window.shipLength = 2;
+            setShipStatePlace(true);
+            alert("Select a start space to place your Destroyer");
             //PlaceShip();
       }
     }
