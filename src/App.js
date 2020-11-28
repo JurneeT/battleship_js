@@ -11,6 +11,7 @@ import SelectShip from './ships.js'
 //import { Box } from '@material-ui/core';
 import PlayerGrid from './cell.js';
 import React, { useState } from 'react';
+import PlayGame from './playGame.js';
 
 
 let start = 0;
@@ -18,7 +19,8 @@ let dir = 0;
 
 function App() {
 const [shipStatePlace, setShipStatePlace] = useState(false);
-const [shipStateDirection, setShipStateDirection] = useState(false)
+const [shipStateDirection, setShipStateDirection] = useState(false);
+const [turn, setTurn] = useState("CPU");
 
   return (
     <body style={{
