@@ -5,6 +5,7 @@
 
 import logo from './logo.png';
 import './App.css';
+import CPU_grid from './cpugrid.js';
 import { Grid } from '@material-ui/core';
 //import { MenuItem } from '@material-ui/core';
 import { Paper } from '@material-ui/core';
@@ -52,6 +53,10 @@ const [turn, setTurn] = useState("CPU");
    shipStateDirection={(shipStateDirection)}
    />
 
+   <CPU_grid
+   
+
+   />
       <div><SwapButton/></div>
     </div>
     </body>
