@@ -1,4 +1,7 @@
-// hello jurnee t
+/**
+ * Figure out how render CPU board and player board with react hooks
+ * Use state hook, use effect hook
+ */
 
 import logo from './logo.png';
 import './App.css';
