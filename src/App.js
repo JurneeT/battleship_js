@@ -24,6 +24,7 @@ function App() {
 const [shipStatePlace, setShipStatePlace] = useState(false);
 const [shipStateDirection, setShipStateDirection] = useState(false);
 const [turn, setTurn] = useState("CPU");
+const [start, setStart] = useState(false);
 
 
   return (
@@ -36,6 +37,28 @@ const [turn, setTurn] = useState("CPU");
     
       <SelectShip
       setShipStatePlace={(state) => setShipStatePlace(state)}/>
+
+    {start === false & shipStatePlace === false & shipStateDirection === false ?
+    <h1 id="user-prompt">
+    <div id="prompt">Please select a ship to place</div>
+    </h1>:null
+    }
+    {shipStatePlace === true & shipStateDirection === false ?
+    <h1 id="user-prompt">
+    <div id="prompt">Select a start space to place your ship</div>
+    </h1>:null 
+    }
+    {shipStatePlace === false & shipStateDirection === true ?
+    <h1 id="user-prompt">
+    <div id="prompt">Select an adjacent space left, right, up, or down to set the direction</div>
+    </h1>:null 
+    }
+    {turn === "user" ?
+    <h1 id="user-prompt">
+    <div id="prompt">It's your turn! Fire away!!!</div>
+    </h1>:null 
+    }
+
       <PlayGame
       setTurn={(state) => setTurn(state)}
       turn={(turn)}/>

@@ -129,7 +129,7 @@ function PlayerGrid({setShipStatePlace, setShipStateDirection, shipStatePlace, s
         window.start - 1 !== window.dir
       ) {
         alert("NOT A VALID SELECTION");
-        placeShip();
+        //placeShip();
       }
       fillPegs();
       alert('dir: ' + pos);

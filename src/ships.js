@@ -47,10 +47,10 @@ function SelectShip({setShipStatePlace}) {
             <Button className="ship-button" variant="outlined" id="destroyer" onClick={selectShip}>
                 {"Destroyer 2-Nodes"}
             </Button>   
-            <h1 id="user-prompt">
+           {/* <h1 id="user-prompt">
             <div id="prompt">Please Select A Ship To Place</div>
-            </h1> 
-        </div>
+    </h1> */}
+    </div>
     )
 }
 
