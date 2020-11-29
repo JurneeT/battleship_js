@@ -49,9 +49,6 @@ function SelectShip({setShipStatePlace}) {
             </Button>   
             <h1 id="user-prompt">
                 <div id="prompt">Please Select A Ship To Place</div>
-                    <Button variant="outlined" id="play-button">
-                        {"Play Game"}
-                    </Button>
             </h1> 
         </div>
     )

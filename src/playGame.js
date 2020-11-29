@@ -31,12 +31,296 @@ let CPU = {
     },
   };
   
-  let Board = Array(10).fill().map(() => Array(10).fill(null));
+let Board = Array(10).fill().map(() => Array(10).fill(null));
 
-function PlayGame (){
+//CPU ship placement//////////////////////////
+function positionShip(CPU,Board) {
+  
+    for (var boat in CPU.ships) {
+      
+      let length_of_boat = CPU.ships[boat].pegs.length;
+      
+      // choosing  position
+      let validity = false;
+      let dir_to_choose=[]
+      while (validity === false) {
+        var position = Math.floor(Math.random() * (100 - 1 + 1)) + 1;
+  
+        validity = isValidPosition(position, Board);
+  
+        dir_to_choose=chooseDir(length_of_boat, Board, position);
+  
+        if(dir_to_choose.length===0){
+          validity=false;
+        }
+  
+      }
+      let new_direction = dir_to_choose[(Math.floor(Math.random() * ((dir_to_choose.length - 1) - 0 + 0)) + 0)];
+  
+      let column = Math.floor((position - 1) % 10);
+      let row = Math.floor((position - 1) / 10);
+      //choosing direction
+  
+      
+      
+      /*alert("length_of_boat="+length_of_boat)
+      alert("position="+position)
+      alert("new_direction="+new_direction);
+      alert("")*/
+      if (new_direction === (position - 10)) {
+        for (let i = 0; i < length_of_boat; i++) {
+          Board[row - i][column] = length_of_boat;
+        }
+      }
+  
+      else if (new_direction === (position + 10)) {
+        for (let i = 0; i < length_of_boat; i++) {
+          Board[row + i][column] = length_of_boat;
+        }
+      }
+      else if (new_direction === (position + 1)) {
+        for (let i = 0; i < length_of_boat; i++) {
+          Board[row][column + i] = length_of_boat;
+        }
+      }
+      else {
+        for (let i = 0; i < length_of_boat; i++) {
+          Board[row][column - i] = length_of_boat;
+        }
+      }
+  
+  
+  
+      
+    //break;
+      
+    }
+    
+    
+    return Board;
+  
+  }
+  function chooseDir(length, board, position) {
+    //alert(position)
+    let liste = [];
+    let column = Math.floor((position - 1) % 10);
+    let row = Math.floor((position - 1) / 10);
+  
+    let liste_direction = ["U", "D", "L", "R"];
+    for (var dir of liste_direction) {
+      //alert(liste_direction[dir])
+      let valid_direction = true;
+      let count = 0;
+      if (dir === "U") {
+        let row_x = row;
+        while (count < length) {
+  
+          if (row_x > 9 || row_x < 0 || column > 9 || column < 0) {
+            valid_direction = false;
+            
+            /*alert("a1")
+            alert(row_x)
+            alert(column)
+            alert(length)*/
+            break;
+  
+          }
+          
+            if (board[row_x][column] !== null) {
+              valid_direction = false;
+            }
+          row_x--;
+          count++;
+        }
+  
+      }
+      else if (dir === "D") {
+        let row_d = row;
+        while (count < length) {
+          if (row_d > 9 || row_d < 0 || column > 9 || column < 0) {
+            valid_direction = false;
+            
+  
+            /*alert("a2")
+            alert(row_d)
+            alert(column)
+            alert(length)*/
+            break;
+          }
+          
+            if (board[row_d][column] !== null) {
+              valid_direction = false;
+  
+            }
+          row_d++;
+          count++;
+        }
+  
+      }
+      else if (dir === "L") {
+  
+        let column_d = column;
+        while (count < length) {
+  
+          if (row > 9 || row < 0 || column_d > 9 || column_d < 0) {
+            valid_direction = false;
+            
+            /*alert("a3")
+            alert(row)
+            alert(column_d)
+            alert(length)*/
+            break;
+  
+          }
+          
+            if (board[row][column_d] !== null) {
+              valid_direction = false;
+            }
+          count++;
+          column_d--;
+        }
+  
+      }
+      else {
+        let column_d = column;
+        while (count < length) {
+  
+          if (row > 9 || row < 0 || column_d > 9 || column_d < 0) {
+            valid_direction = false;
+            
+            /*alert("a4")
+            alert(row)
+            alert(column_d)
+            alert(length)*/
+            break;
+  
+          }
+          
+            if (board[row][column_d] !== null) {
+              valid_direction = false;
+            }
+          count++;
+          column_d++;
+        }
+  
+      }
+  
+  
+      if (valid_direction === true) {
+        if (dir === "U") {
+          liste.push(position - 10);
+        }
+        else if (dir === "D") {
+          liste.push(position + 10);
+        }
+        else if (dir === "R") {
+          liste.push(position + 1);
+        }
+        else {
+          liste.push(position - 1);
+        }
+  
+      }
+      //alert(liste)
+    }
+    //alert(liste)
+    
+    //console.log("length="+liste.length  )
+    
+    //console.log("new_direction="+ new_direction)
+  
+  
+    return liste;
+  }
+  
+  function isValidPosition(num, board) {
+    let column = Math.floor((num - 1) % 10);
+    let row = Math.floor((num - 1) / 10);
+  
+  
+    if (board[row][column] === null) {
+      return true;
+  
+    }
+    return false;
+  
+  }
+  ///////////////////////////////
+  ////////////////////////////////////
+  
+  function updateCpuBoard(hit,Board,CPU){
+    let column = Math.floor((hit - 1) % 10);
+    let row = Math.floor((hit - 1) / 10);
+    let target=Board[row][column];
+  
+    if(target == "X" || target == '0'){
+      console.log("Play Again")
+    }
+    else{
+    if(target !== null){
+      Board[row][column]= 'X';
+      console.log("HIT !!!");
+      if(target === 5){
+        CPU.ships.battleship.size-=1;
+        if(CPU.ships.battleship.size === 0){
+          CPU.ships.battleship.isSunk=true;
+          console.log("Battleship is down")
+  
+        }
+  
+      }
+      else if(target === 4){
+        
+        CPU.ships.cruiser.size-=1;
+        if(CPU.ships.cruiser.size === 0){
+          CPU.ships.cruiser.isSunk=true;
+          console.log("Cruiser is down")
+  
+        }
+  
+      }
+      else if(target === 3){
+        CPU.ships.sub.size-=1;
+        if(CPU.ships.sub.size === 0){
+          CPU.ships.sub.isSunk=true;
+          console.log("Sub is down")
+        }
+  
+      }
+      else {
+        CPU.ships.destroyer.size-=1;
+        if(CPU.ships.destroyer.size === 0){
+          CPU.ships.destroyer.isSunk=true;
+          console.log("Destroyer is down")
+        }
+  
+      }
+    }
+    else{
+      Board[row][column]= '0';
+      console.log("Missed");
+    }
+    }
+  
+    return Board;
+  }
+  
+  
+////////////////////////////////////
+
+
+function PlayGame ({setTurn, turn}){
+    function startGame(e){
+        alert(turn);
+        setTurn("user");
+        // build the cpuBoard
+        positionShip(CPU, Board);
+        alert("cpuBoard: " + cpuBoard);
+        alert(turn);
+    }
 
     return(
-        <Button variant="outlined" id="play-button">
+        <Button variant="outlined" id="play-button" onClick={startGame}>
                         {"Play Game"}
                     </Button>
     )

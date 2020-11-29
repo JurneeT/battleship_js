@@ -12,6 +12,7 @@ import SelectShip from './ships.js'
 import PlayerGrid from './cell.js';
 import React, { useState } from 'react';
 import PlayGame from './playGame.js';
+import SwapButton from './swapTurn';
 
 
 let start = 0;
@@ -32,6 +33,9 @@ const [turn, setTurn] = useState("CPU");
     
       <SelectShip
       setShipStatePlace={(state) => setShipStatePlace(state)}/>
+      <PlayGame
+      setTurn={(state) => setTurn(state)}
+      turn={(turn)}/>
       
   <div className="Input-select-size">
   </div>
@@ -43,7 +47,7 @@ const [turn, setTurn] = useState("CPU");
    shipStateDirection={(shipStateDirection)}
    />
 
- 
+      <div><SwapButton/></div>
     </div>
     </body>
   );

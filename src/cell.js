@@ -870,10 +870,6 @@ function PlayerGrid({setShipStatePlace, setShipStateDirection, shipStatePlace, s
            </Grid>
         </Grid>
     </Grid>
-    <Button id="swap-turn" variant="outlined">
-      {"Change Turn"}
-    </Button> 
-
     </div>
 
  
