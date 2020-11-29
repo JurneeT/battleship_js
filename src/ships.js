@@ -48,7 +48,7 @@ function SelectShip({setShipStatePlace}) {
                 {"Destroyer 2-Nodes"}
             </Button>   
             <h1 id="user-prompt">
-                <div id="prompt">Please Select A Ship To Place</div>
+            <div id="prompt">Please Select A Ship To Place</div>
             </h1> 
         </div>
     )

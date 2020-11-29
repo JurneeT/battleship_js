@@ -13,6 +13,8 @@ import PlayerGrid from './cell.js';
 import React, { useState } from 'react';
 import PlayGame from './playGame.js';
 import SwapButton from './swapTurn';
+import CPUGrid from './cpuBoard';
+
 
 
 let start = 0;
@@ -22,6 +24,7 @@ function App() {
 const [shipStatePlace, setShipStatePlace] = useState(false);
 const [shipStateDirection, setShipStateDirection] = useState(false);
 const [turn, setTurn] = useState("CPU");
+const [start, setStart] = useState(false);
 
   return (
     <body style={{
@@ -29,7 +32,7 @@ const [turn, setTurn] = useState("CPU");
 
     <div className="App">
        <img src={logo}  width="25%" height="25%" class="logo" alt="Bison Boggle Logo" /> 
-      <h1 id="">Battle Ship</h1> 
+      <h1 id="">BattleShip</h1> 
     
       <SelectShip
       setShipStatePlace={(state) => setShipStatePlace(state)}/>
@@ -40,14 +43,17 @@ const [turn, setTurn] = useState("CPU");
   <div className="Input-select-size">
   </div>
 
-   <PlayerGrid
+  {turn === "CPU" && <PlayerGrid
    setShipStatePlace={(state) => setShipStatePlace(state)} 
    setShipStateDirection={(state) => setShipStateDirection(state)}
    shipStatePlace={(shipStatePlace)}
    shipStateDirection={(shipStateDirection)}
-   />
+   />}
+   {turn === "user" && <CPUGrid/>}
+   
+   
 
-      <div><SwapButton/></div>
+    <div><SwapButton/></div>
     </div>
     </body>
   );

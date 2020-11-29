@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import { Button } from '@material-ui/core';
 
-let cpuBoard;
+// CPU Board variables
+var cpuBoard = [];
 let CPU = {
     ships: {
       battleship: {
@@ -32,6 +33,7 @@ let CPU = {
   };
   
 let Board = Array(10).fill().map(() => Array(10).fill(null));
+
 
 //CPU ship placement//////////////////////////
 function positionShip(CPU,Board) {
@@ -246,77 +248,20 @@ function positionShip(CPU,Board) {
   
   }
   ///////////////////////////////
-  ////////////////////////////////////
   
-  function updateCpuBoard(hit,Board,CPU){
-    let column = Math.floor((hit - 1) % 10);
-    let row = Math.floor((hit - 1) / 10);
-    let target=Board[row][column];
-  
-    if(target == "X" || target == '0'){
-      console.log("Play Again")
-    }
-    else{
-    if(target !== null){
-      Board[row][column]= 'X';
-      console.log("HIT !!!");
-      if(target === 5){
-        CPU.ships.battleship.size-=1;
-        if(CPU.ships.battleship.size === 0){
-          CPU.ships.battleship.isSunk=true;
-          console.log("Battleship is down")
-  
-        }
-  
-      }
-      else if(target === 4){
-        
-        CPU.ships.cruiser.size-=1;
-        if(CPU.ships.cruiser.size === 0){
-          CPU.ships.cruiser.isSunk=true;
-          console.log("Cruiser is down")
-  
-        }
-  
-      }
-      else if(target === 3){
-        CPU.ships.sub.size-=1;
-        if(CPU.ships.sub.size === 0){
-          CPU.ships.sub.isSunk=true;
-          console.log("Sub is down")
-        }
-  
-      }
-      else {
-        CPU.ships.destroyer.size-=1;
-        if(CPU.ships.destroyer.size === 0){
-          CPU.ships.destroyer.isSunk=true;
-          console.log("Destroyer is down")
-        }
-  
-      }
-    }
-    else{
-      Board[row][column]= '0';
-      console.log("Missed");
-    }
-    }
-  
-    return Board;
-  }
-  
-  
-////////////////////////////////////
-
 
 function PlayGame ({setTurn, turn}){
     function startGame(e){
-        alert(turn);
+        // change the turn to the user
         setTurn("user");
-        // build the cpuBoard
+        // build the cpuBoard array
         positionShip(CPU, Board);
+        // flatten cpuBoard into 1D array
+        for(var i = 0; i < Board.length; i++){
+        cpuBoard = cpuBoard.concat(Board[i]);
+        }
         alert("cpuBoard: " + cpuBoard);
-        alert(turn);
+        // call function to begin taking in guesses
     }
 
     return(
@@ -325,3 +270,4 @@ function PlayGame ({setTurn, turn}){
                     </Button>
     )
 }export default PlayGame;
+export { cpuBoard };

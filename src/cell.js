@@ -64,7 +64,7 @@ function PlayerGrid({setShipStatePlace, setShipStateDirection, shipStatePlace, s
       // setting the 1st peg, and start place on the board array
       if (window.shipLength === 5){
         if(Player.ships.battleship.pegs.every(element => element === null)){
-           Player.ships.battleship.pegs[0] = parseInt(window.start);
+          Player.ships.battleship.pegs[0] = parseInt(window.start);
           gameBoard[window.start - 1] = window.shipLength;
         }
       }else if (window.shipLength === 4){
@@ -318,7 +318,9 @@ function PlayerGrid({setShipStatePlace, setShipStateDirection, shipStatePlace, s
           }*/
         //}}
         return(
+          
             <div className="Board-div">
+              
     <Grid container spacing={3} justify="center">
         <Grid item xs={12}>
            <Grid container spacing={1} justify="space-around">
