@@ -4,17 +4,17 @@ import React, {useState} from 'react';
 function swapTurn({setTurn, turn}) {
     if (turn === "CPU"){
         setTurn("user");
-        alert(turn);
+        //alert(turn);
     }else if (turn === "user"){
         setTurn("CPU");
-        alert(turn);
+        //alert(turn);
     }
 }
 
-function SwapButton(){
+function SwapButton({setTurn, turn}){
 
     return(
-        <Button variant="outlined" id="play-button" onClick={()=>swapTurn()}>
+        <Button variant="outlined" id="play-button" onClick={()=>swapTurn({setTurn, turn})}>
                         {"Change Turn"}
                     </Button>
     )

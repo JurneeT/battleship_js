@@ -4,7 +4,7 @@ import {cpuBoard} from './playGame.js';
 
 // variables for checking guesses
 
-const Guess = {
+var Guess = {
     prevHits: [],
     prevMisses: [],
     cpuGuesses: [],
@@ -111,12 +111,12 @@ function CPUGrid(){
 
 
     return(
-    <div className="Board-div">
+    <div className="CPU-Board-div">
     <Grid container spacing={3} justify="center">
         <Grid item xs={12}>
            <Grid container spacing={1} justify="space-around">
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4} onClick={()=>checkHit(1)} style={{color:"white", backgroundColor: Guess.prevHits.includes(1) ? "red": Guess.prevMisses.includes(1) ? "gray":"#07102c"}}>
+             <Grid item xs={1} className="CPU-Tile">
+               <Paper elevation={4} style={{color:"white", backgroundColor: Guess.prevMisses.includes(1) ? "gray": Guess.prevHits.includes(1) ? "red":"#07102c"}} onClick={()=>{checkHit(1); alert("Is 1 in Guess.prevMisses? "+Guess.prevMisses.includes(1))}}>
                    -1
                </Paper>
              </Grid>
@@ -126,7 +126,7 @@ function CPUGrid(){
                </Paper>
              </Grid>
              <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
+               <Paper elevation={4} onClick={()=>checkHit(1)} style={{color:"white", backgroundColor: Guess.prevMisses.includes(1) ? "gray": Guess.prevHits.includes(1) ? "red":"#07102c"}}>
                    -3
                </Paper>
              </Grid>

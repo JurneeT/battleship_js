@@ -24,7 +24,7 @@ function App() {
 const [shipStatePlace, setShipStatePlace] = useState(false);
 const [shipStateDirection, setShipStateDirection] = useState(false);
 const [turn, setTurn] = useState("CPU");
-const [start, setStart] = useState(false);
+
 
   return (
     <body style={{
@@ -53,7 +53,9 @@ const [start, setStart] = useState(false);
    
    
 
-    <div><SwapButton/></div>
+    <div><SwapButton
+    setTurn={(state) => setTurn(state)}
+    turn={(turn)}/></div>
     </div>
     </body>
   );
