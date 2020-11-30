@@ -1,14 +1,6 @@
 import logo from './logo.png';
 import './App.css';
-import { Grid } from '@material-ui/core';
-//import { MenuItem } from '@material-ui/core';
-import { Paper } from '@material-ui/core';
-import { Button } from '@material-ui/core';
-//import { FormControl } from '@material-ui/core';
-//import { Select } from '@material-ui/core';
-//import { FormHelperText } from '@material-ui/core';
 import SelectShip from './ships.js'
-//import { Box } from '@material-ui/core';
 import PlayerGrid from './cell.js';
 import React, { useState } from 'react';
 import PlayGame from './playGame.js';
@@ -67,7 +59,8 @@ const [start, setStart] = useState(false);
       <PlayGame
       setTurn={(state) => setTurn(state)}
       turn={(turn)}
-      setStart={(state) => setStart(state)}/>
+      setStart={(state) => setStart(state)}
+      start={(start)}/>
       
   <div className="Input-select-size">
   </div>

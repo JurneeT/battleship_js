@@ -1,5 +1,4 @@
 import { Button } from '@material-ui/core';
-import React, {useState} from 'react';
 import winCheck from './cpuBoard';
 import {Guess} from './cpuBoard.js';
 import {gameBoard} from './cell.js';

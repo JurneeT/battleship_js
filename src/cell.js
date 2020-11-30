@@ -1,9 +1,5 @@
 import { Grid } from '@material-ui/core';
 import { Paper } from '@material-ui/core';
-import { Button } from '@material-ui/core';
-import { useState, useEffect } from 'react';
-import App from './App.js';
-import shipState from './App.js';
 import {Guess} from './cpuBoard.js';
 
 
@@ -33,29 +29,7 @@ const Player = {
     gameBoard[i] = null;
   }
 
-function PlayerGrid({setShipStatePlace, setShipStateDirection, shipStatePlace, shipStateDirection}){
-  const [position, setPosition] = useState();
-  //const [dir, setDir] = useState(0);
-
-  /*useEffect(()=>{
-    if (shipStatePlace === true && shipStateDirection === false){
-      window.start = position;
-      setShipStatePlace(false);
-      setShipStateDirection(true);
-      alert('start: ' + position);
-    }
-    else if (shipStatePlace === false && shipStateDirection === true){
-      window.dir = position;
-      setShipStatePlace(false);
-      setShipStateDirection(false);
-      alert('dir: ' + position);
-    }else{
-      alert('undefined');
-      alert('place: ' + shipStatePlace);
-    }
-
-  }, [grid]);*/
-  
+function PlayerGrid({setShipStatePlace, setShipStateDirection, shipStatePlace, shipStateDirection}){  
 
   function placeShip(pos){
     //alert("shipLength:" + window.shipLength);
@@ -85,7 +59,7 @@ function PlayerGrid({setShipStatePlace, setShipStateDirection, shipStatePlace, s
           gameBoard[window.start - 1] = window.shipLength;
         }
       } 
-      alert('start: ' + pos);
+      //alert('start: ' + pos);
       // next set the direction
     }
     else if (shipStatePlace === false && shipStateDirection === true){
@@ -134,8 +108,8 @@ function PlayerGrid({setShipStatePlace, setShipStateDirection, shipStatePlace, s
         //placeShip();
       }
       fillPegs();
-      alert('dir: ' + pos);
-      alert('gameboard: ' + gameBoard);
+      //alert('dir: ' + pos);
+      //alert('gameboard: ' + gameBoard);
       //alert('battleship: ' + Player.ships.battleship.pegs);
 
     }else{

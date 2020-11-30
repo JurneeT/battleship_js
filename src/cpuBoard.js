@@ -17,33 +17,7 @@ export const Guess = {
 let playerHitCount = 0;
 let cpuHitCount = 0;
 let win = false;
-///////////////////////////
-function generate_random_attack(hits,misses)
-{
-    // Get a random value
-    var x =  Math.floor(Math.random() * (100 - 1) + 1);
 
-    // If the value is in hits or in misses
-    if (hits.includes(x) === true || misses.includes(x))
-    {
-      var untouched_cell = false;
-      // continue to search for an open space
-      while (untouched_cell === false)
-      {
-        x = Math.floor(Math.random() * (100 - 0) + 0);
-        if (hits.includes(x) === true || misses.includes(x))
-        {
-          continue;
-        }
-        else
-        {
-          untouched_cell = true;
-        }
-      }
-    }
-    return x;
-} 
-//////////////////////////
 // winCheck --> check for win to be called within checkHit
 export function winCheck() {
     if (playerHitCount === 14) {
@@ -86,29 +60,8 @@ function CPUGrid(){
         Guess.playerGuesses.push(pos);
       }  
     } 
-}
-  
-  /*else if (turn === "cpu")
-  {
-    cell = generate_random_attack(Guess.cpuMisses,Guess.cpuHits)
-    if (window.gameBoard[cell - 1] === null){
-      console.log("Miss at cell: " + cell);
-      Guess.cpuMisses.push(cell);
-    }else if (window.gameBoard[cell - 1] !== null){
-      Guess.cpuHits.push(cell);
-      cpuHitCount += 1;
-      win = winCheck();
-      if (win === true)
-      {
-        console.log("GAME OVER!")
-      }
-      else
-      {
-        Guess.cpuGuesses.push(cell);
-      }    
-    }
-  }*/
   }
+}
 
 
     return(
