@@ -4,7 +4,7 @@ import {cpuBoard} from './playGame.js';
 
 // variables for checking guesses
 
-const Guess = {
+export const Guess = {
     prevHits: [],
     prevMisses: [],
     cpuGuesses: [],
@@ -13,7 +13,7 @@ const Guess = {
     cpuMisses: []
   };
 
-let cell = 0;
+
 let playerHitCount = 0;
 let cpuHitCount = 0;
 let win = false;
@@ -45,7 +45,7 @@ function generate_random_attack(hits,misses)
 } 
 //////////////////////////
 // winCheck --> check for win to be called within checkHit
-function winCheck() {
+export function winCheck() {
     if (playerHitCount === 14) {
       alert("YOU WIN!");
       return true;
@@ -63,24 +63,25 @@ function CPUGrid(){
     //change gameBoard to cpuBoard
     // If the player's guess is invalid
     if(Guess.playerGuesses.includes(pos) === true){
-      console.log("You Already Shot Here");
-      checkHit();
+      alert("You Already Shot Here");
+      //checkHit();
     }// If the player's guess is valid
     else if (Guess.playerGuesses.includes(pos) === false){
       if (cpuBoard[pos - 1] == null) // If the the cell is empty
       {
-        alert("Miss");
+        alert("You MISSED at cell " + pos);
         Guess.playerGuesses.push(pos);
         Guess.prevMisses.push(pos);
-        alert("This is the prev misses array: " + Guess.prevMisses);
+        //alert("This is the prev misses array: " + Guess.prevMisses);
       }else if (cpuBoard[pos - 1] !== null) // if the cell is occupied
     {// increment hit count and check if win
       playerHitCount += 1;
+      alert("Hit count: " + playerHitCount);
       win = winCheck();
       if (win === true){
-        console.log("YOU WIN!")
+        alert("YOU WIN!");
       }else{ //if not a win
-        alert("Hit");
+        alert("You HIT at cell " + pos);
         Guess.prevHits.push(pos);
         Guess.playerGuesses.push(pos);
       }  
@@ -111,6 +112,7 @@ function CPUGrid(){
 
 
     return(
+      
     <div className="CPU-Board-div">
     <Grid container spacing={3} justify="center">
         <Grid item xs={12}>

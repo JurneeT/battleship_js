@@ -35,16 +35,16 @@ function SelectShip({setShipStatePlace}) {
     return(
         
         <div className="ships">
-            <Button className="ship-button" variant="outlined" id="battleship" onClick={selectShip}>
+            <Button className="ship-button" mt={10} variant="outlined" id="battleship" onClick={selectShip} style={{color: "white", backgroundColor:"orchid", fontWeight: "bold"}}>
                 {"BattleShip 5-Nodes"}
             </Button>
-            <Button className="ship-button" variant="outlined" id="cruiser" onClick={selectShip}>
+            <Button className="ship-button" variant="outlined" id="cruiser" onClick={selectShip} style={{color: "white", backgroundColor:"orange", fontWeight: "bold"}}>
                 {"Cruiser 4-Nodes"}
             </Button>
-            <Button className="ship-button" variant="outlined" id="sub" onClick={selectShip}>
+            <Button className="ship-button" variant="outlined" id="sub" onClick={selectShip} style={{color: "white", backgroundColor:"green", fontWeight: "bold"}}>
                 {"Submarine 3-Nodes"}
             </Button>
-            <Button className="ship-button" variant="outlined" id="destroyer" onClick={selectShip}>
+            <Button className="ship-button" variant="outlined" id="destroyer" onClick={selectShip} style={{color: "white", backgroundColor:"#663300", fontWeight: "bold"}}>
                 {"Destroyer 2-Nodes"}
             </Button>   
            {/* <h1 id="user-prompt">

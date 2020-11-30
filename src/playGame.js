@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import { Button } from '@material-ui/core';
 
+import {useRef} from 'react';
+
 // CPU Board variables
 var cpuBoard = [];
 let CPU = {
@@ -248,10 +250,12 @@ function positionShip(CPU,Board) {
   
   }
   ///////////////////////////////
-  
 
-function PlayGame ({setTurn, turn}){
+
+function PlayGame ({setTurn, turn, setStart}){
+  
     function startGame(e){
+        setStart(true);
         // change the turn to the user
         setTurn("user");
         // build the cpuBoard array
@@ -265,7 +269,7 @@ function PlayGame ({setTurn, turn}){
     }
 
     return(
-        <Button variant="outlined" id="play-button" onClick={startGame}>
+        <Button variant="outlined" id="play-button" onClick={startGame} style={{color:"black", backgroundColor:"white", fontWeight:"bold"}}>
                         {"Play Game"}
                     </Button>
     )

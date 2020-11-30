@@ -58,10 +58,16 @@ const [start, setStart] = useState(false);
     <div id="prompt">It's your turn! Fire away!!!</div>
     </h1>:null 
     }
+    {turn === "CPU" & start === true ?
+    <h1 id="user-prompt">
+    <div id="prompt">CPU is firing!!!</div>
+    </h1>:null 
+    }
 
       <PlayGame
       setTurn={(state) => setTurn(state)}
-      turn={(turn)}/>
+      turn={(turn)}
+      setStart={(state) => setStart(state)}/>
       
   <div className="Input-select-size">
   </div>
