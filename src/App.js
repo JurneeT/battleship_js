@@ -32,7 +32,12 @@ const [cpuhit, setCPUHit] = useState(false);
 
     <div className="App">
        <img src={logo}  width="25%" height="25%" class="logo" alt="Bison Boggle Logo" /> 
-      <h1 id="">BattleShip</h1> 
+      
+      
+      {user===null?
+      <h1 id="">BattleShip</h1>: <h1 id="">Welcome to BattleShip, {user.displayName}</h1>
+      }
+      
 
 
       {mainMenu===true &&
