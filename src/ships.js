@@ -36,7 +36,8 @@ function SelectShip({setShipStatePlace}) {
       } else if (e.currentTarget.id  === "destroyer") {
             window.shipLength = 2;
             setShipStatePlace(true);
-            alert("Select a start space to place your Destroyer");
+            setDestroyerBtnEnabled(false);
+            //alert("Select a start space to place your Destroyer");
             //PlaceShip();
       }
     }
