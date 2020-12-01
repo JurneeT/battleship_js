@@ -18,9 +18,13 @@ const [shipStateDirection, setShipStateDirection] = useState(false);
 const [turn, setTurn] = useState("CPU");
 const [start, setStart] = useState(false);
 
-const [location, setLocation] = useState(0);
-const [cpumiss, setCPUMiss] = useState(false);
 const [cpuhit, setCPUHit] = useState(false);
+const [cpumiss, setCPUMiss] = useState(false);
+const [location, setLocation] = useState(0);
+
+//const [position, setPosition] = useState(0);
+//const [miss, setMiss] = useState(false);
+//const [hit, setHit] = useState(false);
 
 
   return (
@@ -78,10 +82,20 @@ const [cpuhit, setCPUHit] = useState(false);
    setShipStateDirection={(state) => setShipStateDirection(state)}
    shipStatePlace={(shipStatePlace)}
    shipStateDirection={(shipStateDirection)}
+   cpuhit={(cpuhit)}
+   cpumiss={(cpumiss)}
+   location={(location)}
    />}
-   {turn === "user" && <CPUGrid/>}
+   {turn === "user" && <CPUGrid
+   />}
    
+   {/**postion={(position)}
+    * setPosition={(state)=>setPosition(state)}
+    *setHit={(state)=> setHit(state)}
+   setMiss={(state)=>setMiss(state)}
    
+   hit={(hit)}
+            miss={(miss)}*/}
 
     <div><SwapButton
     setTurn={(state) => setTurn(state)}

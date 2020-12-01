@@ -74,12 +74,15 @@ function removePeg(num){
 ////////////////////////
 
 function CPUGrid(){
-
+  /*var position = 0; 
+  var hit = false;
+  var miss = false;*/
   const [position, setPosition] = useState(0);
   const [miss, setMiss] = useState(false);
   const [hit, setHit] = useState(false);
+  //{setHit, setMiss, hit, miss}
 
-  // function that reads in guesses from player and CPU
+  // function that reads in guesses from player
   function checkHit(pos){
 
     setPosition(pos);
@@ -93,6 +96,7 @@ function CPUGrid(){
       if (cpuBoard[pos - 1] == null) // If the the cell is empty
       {
         setMiss(true);
+        setHit(false);
         Guess.playerGuesses.push(pos);
         Guess.prevMisses.push(pos);
         //alert("This is the prev misses array: " + Guess.prevMisses);
@@ -101,6 +105,7 @@ function CPUGrid(){
       playerHitCount += 1;
       //alert("Hit count: " + playerHitCount);
       setHit(true);
+      setMiss(false);
       removePeg(pos);
       win = winCheck();
       if (win === true){

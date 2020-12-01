@@ -51,11 +51,13 @@ function checkHit(){
     if (gameBoard[cell - 1] === null){
       Guess.cpuMisses.push(cell);
       setCPUMiss(true);
+      setCPUHit(false);
       //alert("cpumiss " + cpumiss);
     }else if (gameBoard[cell - 1] !== null){
       Guess.cpuHits.push(cell);
       window.cpuHitCount += 1;
       setCPUHit(true);
+      setCPUMiss(false);
       //remove peg from ship
       removePeg(cell);
       //check if ship is sunk
