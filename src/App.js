@@ -18,6 +18,10 @@ const [shipStateDirection, setShipStateDirection] = useState(false);
 const [turn, setTurn] = useState("CPU");
 const [start, setStart] = useState(false);
 
+const [location, setLocation] = useState(0);
+const [cpumiss, setCPUMiss] = useState(false);
+const [cpuhit, setCPUHit] = useState(false);
+
 
   return (
     <body style={{
@@ -64,6 +68,10 @@ const [start, setStart] = useState(false);
       
   <div className="Input-select-size">
   </div>
+  {cpuhit === true & turn === "CPU" ?
+              <h1>CPU HIT your ship at cell ({location})</h1>: cpumiss === true & turn === "CPU"?
+              <h1>CPU MISSED at cell ({location})</h1>:null
+              }
 
   {turn === "CPU" && <PlayerGrid
    setShipStatePlace={(state) => setShipStatePlace(state)} 
@@ -77,6 +85,9 @@ const [start, setStart] = useState(false);
 
     <div><SwapButton
     setTurn={(state) => setTurn(state)}
+    setCPUHit={(state) => setCPUHit(state)}
+    setCPUMiss={(state) => setCPUMiss(state)}
+    setLocation={(state) => setLocation(state)}
     turn={(turn)}/></div>
     </div>
     </body>

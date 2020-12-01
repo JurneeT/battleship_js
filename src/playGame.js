@@ -264,7 +264,7 @@ function PlayGame ({setTurn, turn, setStart, start}){
         for(var i = 0; i < Board.length; i++){
         cpuBoard = cpuBoard.concat(Board[i]);
         }
-        alert("cpuBoard: " + cpuBoard);
+        //alert("cpuBoard: " + cpuBoard);
         // call function to begin taking in guesses
     }
 
@@ -282,3 +282,4 @@ function PlayGame ({setTurn, turn, setStart, start}){
     )
 }export default PlayGame;
 export { cpuBoard };
+export {CPU};
