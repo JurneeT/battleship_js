@@ -1,12 +1,22 @@
 import { Button } from '@material-ui/core';
-import React, {useState} from 'react';
 import winCheck from './cpuBoard';
 import {Guess} from './cpuBoard.js';
 import {gameBoard} from './cell.js';
+import {Player} from './cell.js';
+import {useState} from 'react';
 
 let cell = 0;
 let win = false;
-// generate random attack function
+let index = null;
+
+
+function SwapButton({setTurn, setCPUHit, setCPUMiss, setLocation, turn}){
+    /*const [location, setLocation] = useState(0);
+    const [cpuhit, setCPUHit] = useState(false);
+    const [cpumiss, setCPUMiss] = useState(false);*/
+    
+
+    // generate random attack function
 
 function generate_random_attack(hits,misses)
 {
@@ -39,12 +49,17 @@ function checkHit(){
 
     cell = generate_random_attack(Guess.cpuHits, Guess.cpuMisses)
     if (gameBoard[cell - 1] === null){
-      alert("CPU MISSED at cell " + cell);
       Guess.cpuMisses.push(cell);
+      setCPUMiss(true);
+      //alert("cpumiss " + cpumiss);
     }else if (gameBoard[cell - 1] !== null){
-    alert("CPU HIT at cell " + cell);
       Guess.cpuHits.push(cell);
       window.cpuHitCount += 1;
+      setCPUHit(true);
+      //remove peg from ship
+      removePeg(cell);
+      //check if ship is sunk
+      checkSunk();
       win = winCheck();
       if (win === true)
       {
@@ -55,9 +70,38 @@ function checkHit(){
         Guess.cpuGuesses.push(cell);
       }    
     }
+    setLocation(cell);
+}
+function removePeg(num){
+    if (Player.ships.battleship.pegs.includes(num)){
+        index = Player.ships.battleship.pegs.indexOf(num);
+        Player.ships.battleship.pegs.splice(index, 1);
+      }else if (Player.ships.cruiser.pegs.includes(num)){
+        index = Player.ships.cruiser.pegs.indexOf(num);
+        Player.ships.cruiser.pegs.splice(index, 1);
+      }else if (Player.ships.sub.pegs.includes(num)){
+        index = Player.ships.sub.pegs.indexOf(num);
+        Player.ships.sub.pegs.splice(index, 1);
+      }else if (Player.ships.destroyer.pegs.includes(num)){
+        index = Player.ships.destroyer.pegs.indexOf(num);
+        Player.ships.destroyer.pegs.splice(index, 1);
+      }
 }
 
+function checkSunk(){
+    if (Player.ships.battleship.pegs.length === 0){
+      alert("They sunk your Battleship!");
+    }else if (Player.ships.cruiser.pegs.length === 0){
+      console.log("They sunk your Cruiser!");
+    }else if (Player.ships.sub.pegs.length === 0){
+      alert("They sunk your Sub");
+    }else if (Player.ships.destroyer.pegs.length === 0){
+      alert("They sunk your Destroyer");
+    }
+  }
+
 function swapTurn({setTurn, turn}) {
+    
     if (turn === "CPU"){
         setTurn("user");
         //alert(turn);
@@ -68,8 +112,6 @@ function swapTurn({setTurn, turn}) {
         checkHit();
     }
 }
-
-function SwapButton({setTurn, turn}){
 
     return(
         <Button variant="outlined" id="play-button" onClick={()=>swapTurn({setTurn, turn})} style={{color:"black", backgroundColor:"white", fontWeight:"bold"}}>

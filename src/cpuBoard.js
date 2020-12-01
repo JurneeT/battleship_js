@@ -1,6 +1,8 @@
 import { Grid } from '@material-ui/core';
 import { Paper } from '@material-ui/core';
-import {cpuBoard} from './playGame.js';
+import {cpuBoard, CPU} from './playGame.js';
+import React from 'react';
+import {useState} from 'react';
 
 // variables for checking guesses
 
@@ -17,33 +19,10 @@ export const Guess = {
 let playerHitCount = 0;
 let cpuHitCount = 0;
 let win = false;
-///////////////////////////
-function generate_random_attack(hits,misses)
-{
-    // Get a random value
-    var x =  Math.floor(Math.random() * (100 - 1) + 1);
+let target = null;
 
-    // If the value is in hits or in misses
-    if (hits.includes(x) === true || misses.includes(x))
-    {
-      var untouched_cell = false;
-      // continue to search for an open space
-      while (untouched_cell === false)
-      {
-        x = Math.floor(Math.random() * (100 - 0) + 0);
-        if (hits.includes(x) === true || misses.includes(x))
-        {
-          continue;
-        }
-        else
-        {
-          untouched_cell = true;
-        }
-      }
-    }
-    return x;
-} 
-//////////////////////////
+
+
 // winCheck --> check for win to be called within checkHit
 export function winCheck() {
     if (playerHitCount === 14) {
@@ -56,10 +35,54 @@ export function winCheck() {
   }
 
 /////////////////////////
+function removePeg(num){
+  if(cpuBoard[num-1] === 5){
+    CPU.ships.battleship.size-=1;
+    if(CPU.ships.battleship.size === 0){
+      CPU.ships.battleship.isSunk=true;
+      console.log("Battleship is down")
+
+    }
+
+  }
+  else if(cpuBoard[num-1] === 4){
+    
+    CPU.ships.cruiser.size-=1;
+    if(CPU.ships.cruiser.size === 0){
+      CPU.ships.cruiser.isSunk=true;
+      alert("Cruiser is down");
+
+    }
+
+  }
+  else if(cpuBoard[num-1] === 3){
+    CPU.ships.sub.size-=1;
+    if(CPU.ships.sub.size === 0){
+      CPU.ships.sub.isSunk=true;
+      alert("Sub is down");
+    }
+
+  }
+  else if(cpuBoard[num-1] === 2){
+    CPU.ships.destroyer.size-=1;
+    if(CPU.ships.destroyer.size === 0){
+      CPU.ships.destroyer.isSunk=true;
+      alert("Destroyer is down");
+    }
+}
+}
+////////////////////////
 
 function CPUGrid(){
+
+  const [position, setPosition] = useState(0);
+  const [miss, setMiss] = useState(false);
+  const [hit, setHit] = useState(false);
+
   // function that reads in guesses from player and CPU
   function checkHit(pos){
+
+    setPosition(pos);
     //change gameBoard to cpuBoard
     // If the player's guess is invalid
     if(Guess.playerGuesses.includes(pos) === true){
@@ -69,51 +92,36 @@ function CPUGrid(){
     else if (Guess.playerGuesses.includes(pos) === false){
       if (cpuBoard[pos - 1] == null) // If the the cell is empty
       {
-        alert("You MISSED at cell " + pos);
+        setMiss(true);
         Guess.playerGuesses.push(pos);
         Guess.prevMisses.push(pos);
         //alert("This is the prev misses array: " + Guess.prevMisses);
       }else if (cpuBoard[pos - 1] !== null) // if the cell is occupied
     {// increment hit count and check if win
       playerHitCount += 1;
-      alert("Hit count: " + playerHitCount);
+      //alert("Hit count: " + playerHitCount);
+      setHit(true);
+      removePeg(pos);
       win = winCheck();
       if (win === true){
         alert("YOU WIN!");
       }else{ //if not a win
-        alert("You HIT at cell " + pos);
         Guess.prevHits.push(pos);
         Guess.playerGuesses.push(pos);
       }  
     } 
-}
-  
-  /*else if (turn === "cpu")
-  {
-    cell = generate_random_attack(Guess.cpuMisses,Guess.cpuHits)
-    if (window.gameBoard[cell - 1] === null){
-      console.log("Miss at cell: " + cell);
-      Guess.cpuMisses.push(cell);
-    }else if (window.gameBoard[cell - 1] !== null){
-      Guess.cpuHits.push(cell);
-      cpuHitCount += 1;
-      win = winCheck();
-      if (win === true)
-      {
-        console.log("GAME OVER!")
-      }
-      else
-      {
-        Guess.cpuGuesses.push(cell);
-      }    
-    }
-  }*/
   }
+}
 
 
     return(
       
     <div className="CPU-Board-div">
+      {hit === true ?
+      <h1>You got a HIT at cell ({position})</h1>: miss === true ?
+      <h1>You MISSED at cell ({position})</h1>:null
+      }
+      
     <Grid container spacing={3} justify="center">
         <Grid item xs={12}>
            <Grid container spacing={1} justify="space-around">

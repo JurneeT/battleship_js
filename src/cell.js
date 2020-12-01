@@ -1,9 +1,5 @@
 import { Grid } from '@material-ui/core';
 import { Paper } from '@material-ui/core';
-import { Button } from '@material-ui/core';
-import { useState, useEffect } from 'react';
-import App from './App.js';
-import shipState from './App.js';
 import {Guess} from './cpuBoard.js';
 
 
@@ -33,29 +29,7 @@ const Player = {
     gameBoard[i] = null;
   }
 
-function PlayerGrid({setShipStatePlace, setShipStateDirection, shipStatePlace, shipStateDirection}){
-  const [position, setPosition] = useState();
-  //const [dir, setDir] = useState(0);
-
-  /*useEffect(()=>{
-    if (shipStatePlace === true && shipStateDirection === false){
-      window.start = position;
-      setShipStatePlace(false);
-      setShipStateDirection(true);
-      alert('start: ' + position);
-    }
-    else if (shipStatePlace === false && shipStateDirection === true){
-      window.dir = position;
-      setShipStatePlace(false);
-      setShipStateDirection(false);
-      alert('dir: ' + position);
-    }else{
-      alert('undefined');
-      alert('place: ' + shipStatePlace);
-    }
-
-  }, [grid]);*/
-  
+function PlayerGrid({setShipStatePlace, setShipStateDirection, shipStatePlace, shipStateDirection, cpuhit, cpumiss, location}){  
 
   function placeShip(pos){
     //alert("shipLength:" + window.shipLength);
@@ -85,7 +59,7 @@ function PlayerGrid({setShipStatePlace, setShipStateDirection, shipStatePlace, s
           gameBoard[window.start - 1] = window.shipLength;
         }
       } 
-      alert('start: ' + pos);
+      //alert('start: ' + pos);
       // next set the direction
     }
     else if (shipStatePlace === false && shipStateDirection === true){
@@ -134,8 +108,8 @@ function PlayerGrid({setShipStatePlace, setShipStateDirection, shipStatePlace, s
         //placeShip();
       }
       fillPegs();
-      alert('dir: ' + pos);
-      alert('gameboard: ' + gameBoard);
+      //alert('dir: ' + pos);
+      //alert('gameboard: ' + gameBoard);
       //alert('battleship: ' + Player.ships.battleship.pegs);
 
     }else{
@@ -216,112 +190,15 @@ function PlayerGrid({setShipStatePlace, setShipStateDirection, shipStatePlace, s
         }
       }
     }
-   
-  
-    /*function placeShip(){
-        if (window.shipLength === 5){
-          if(Player.ships.battleship.pegs.every(element => element === null)){
-             Player.ships.battleship.pegs[0] = parseInt(e.currentTarget.id);
-            gameBoard[e.currentTarget.id - 1] = window.shipLength;
-            alert(Player.ships.battleship.pegs[0]);
-            /*SetDirection();
+
     
-            if (dir == start - 1) {
-              Player.ships.battleship.pegs[1] = parseInt(dir);
-              Player.ships.battleship.pegs[2] = dir - 1;
-              Player.ships.battleship.pegs[3] = dir - 2;
-              Player.ships.battleship.pegs[4] = dir - 3;
-            }else if (parseInt(dir) == parseInt(start) + 1) {
-              Player.ships.battleship.pegs[1] = parseInt(dir);
-              Player.ships.battleship.pegs[2] = parseInt(start) + 2;
-              Player.ships.battleship.pegs[3] = parseInt(start) + 3;
-              Player.ships.battleship.pegs[4] = parseInt(start) + 4;
-            }
-            else if (parseInt(dir) == parseInt(start) - 10) {
-            Player.ships.battleship.pegs[1] = parseInt(dir);
-            Player.ships.battleship.pegs[2] = parseInt(dir) - 10;
-            Player.ships.battleship.pegs[3] = parseInt(dir) - 20;
-            Player.ships.battleship.pegs[4] = parseInt(dir) - 30;
-            }else if (parseInt(dir) == parseInt(start) + 10) {
-            Player.ships.battleship.pegs[1] = parseInt(dir);
-            Player.ships.battleship.pegs[2] = parseInt(dir) + 10;
-            Player.ships.battleship.pegs[3] = parseInt(dir) + 20;
-            Player.ships.battleship.pegs[4] = parseInt(dir) + 30;
-            }
-          }
-        }
-        else if (window.shipLength == 4){
-          if(Player.ships.cruiser.pegs.every(element => element === null)){
-             Player.ships.cruiser.pegs[0] = parseInt(start);
-            gameBoard[start - 1] = window.shipLength;
-    
-            SetDirection();
-    
-            if (dir == start - 1) {
-              Player.ships.cruiser.pegs[1] = parseInt(dir);
-              Player.ships.cruiser.pegs[2] = dir - 1;
-              Player.ships.cruiser.pegs[3] = dir - 2;
-            }else if (parseInt(dir) == parseInt(start) + 1) {
-              Player.ships.cruiser.pegs[1] = parseInt(dir);
-              Player.ships.cruiser.pegs[2] = parseInt(start) + 2;
-              Player.ships.cruiser.pegs[3] = parseInt(start) + 3;
-            }
-            else if (parseInt(dir) == parseInt(start) - 10) {
-            Player.ships.cruiser.pegs[1] = parseInt(dir);
-            Player.ships.cruiser.pegs[2] = parseInt(dir) - 10;
-            Player.ships.cruiser.pegs[3] = parseInt(dir) - 20;
-            }else if (parseInt(dir) == parseInt(start) + 10) {
-            Player.ships.cruiser.pegs[1] = parseInt(dir);
-            Player.ships.cruiser.pegs[2] = parseInt(dir) + 10;
-            Player.ships.cruiser.pegs[3] = parseInt(dir) + 20;
-            }
-          }
-        }
-        else if (shipLength == 3){
-          if(Player.ships.sub.pegs.every(element => element === null)){
-             Player.ships.sub.pegs[0] = parseInt(start);
-            gameBoard[start - 1] = window.shipLength;
-    
-            SetDirection();
-    
-            if (dir == start - 1) {
-              Player.ships.sub.pegs[1] = parseInt(dir);
-              Player.ships.sub.pegs[2] = dir - 1;
-            }else if (parseInt(dir) == parseInt(start) + 1) {
-              Player.ships.sub.pegs[1] = parseInt(dir);
-              Player.ships.sub.pegs[2] = parseInt(start) + 2;
-            }
-            else if (parseInt(dir) == parseInt(start) - 10) {
-            Player.ships.sub.pegs[1] = parseInt(dir);
-            Player.ships.sub.pegs[2] = parseInt(dir) - 10;
-            }else if (parseInt(dir) == parseInt(start) + 10) {
-            Player.ships.sub.pegs[1] = parseInt(dir);
-            Player.ships.sub.pegs[2] = parseInt(dir) + 10;
-            }
-          }
-        }
-        else if (window.shipLength == 2){
-          if(Player.ships.destroyer.pegs.every(element => element === null)){
-             Player.ships.destroyer.pegs[0] = parseInt(start);
-            gameBoard[start - 1] = window.shipLength;
-    
-            SetDirection();
-    
-            if (dir == start - 1) {
-              Player.ships.destroyer.pegs[1] = parseInt(dir);
-            }else if (parseInt(dir) == parseInt(start) + 1) {
-              Player.ships.destroyer.pegs[1] = parseInt(dir);
-            }
-            else if (parseInt(dir) == parseInt(start) - 10) {
-            Player.ships.destroyer.pegs[1] = parseInt(dir);
-            }else if (parseInt(dir) == parseInt(start) + 10) {
-            Player.ships.destroyer.pegs[1] = parseInt(dir);
-            }
-          }*/
-        //}}
         return(
           
             <div className="Board-div">
+              {cpuhit === true ?
+              <h1>CPU HIT your ship at cell ({location})</h1>: cpumiss === true ?
+              <h1>CPU MISSED at cell ({location})</h1>:null
+              }
               
     <Grid container spacing={3} justify="center">
         <Grid item xs={12}>
@@ -883,4 +760,5 @@ function PlayerGrid({setShipStatePlace, setShipStateDirection, shipStatePlace, s
       
     }
     export default PlayerGrid;
-    export{gameBoard};
+    export {gameBoard};
+    export {Player};
