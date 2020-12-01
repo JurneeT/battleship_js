@@ -31,6 +31,7 @@ const [mainMenu, setmainMenu]= useState(true);
     
 
     <div className="App">
+      
        <img src={logo}  width="25%" height="25%" class="logo" alt="Bison Boggle Logo" /> 
       <h1 id="">BattleShip</h1> 
 
