@@ -275,7 +275,7 @@ function PlayGame ({setTurn, turn, setStart, start}){
          <Button disabled variant="outlined" id="play-button" onClick={startGame} style={{color:"black", backgroundColor:"white", fontWeight:"bold"}}>
          {"Play Game"}
      </Button>:
-     <Button variant="outlined" id="play-button" onClick={startGame} style={{color:"black", backgroundColor:"white", fontWeight:"bold"}}>
+     <Button  variant="outlined" id="play-button" onClick={startGame} style={{color:"black", backgroundColor:"white", fontWeight:"bold"}}>
                         {"Play Game"}
                     </Button>}
    </div>

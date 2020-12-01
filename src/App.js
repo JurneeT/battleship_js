@@ -91,7 +91,7 @@ const [mainMenu, setmainMenu]= useState(true);
     <p id="prompt">It's your turn! Fire away!!!</p>
     </h1>:null 
     }
-    {turn === "CPU" & start === true  &mainMenu===false?
+    {turn === "CPU" & start === true  ?
     <h1 id="user-prompt">
     <p id="prompt">CPU is firing!!!</p>
     </h1>:null 
@@ -116,7 +116,7 @@ const [mainMenu, setmainMenu]= useState(true);
    />
    </p>:null
    }
-   {turn === "user" &mainMenu===false?
+   {turn === "user" ?
    <p > 
      <CPUGrid/>
      </p>:null
