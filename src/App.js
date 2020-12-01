@@ -14,6 +14,7 @@ import React, { useState } from 'react';
 import PlayGame from './playGame.js';
 import SwapButton from './swapTurn';
 import CPUGrid from './cpuBoard';
+import LoginButton from './login_button.js'
 
 
 
@@ -21,6 +22,7 @@ let start = 0;
 let dir = 0;
 
 function App() {
+const [user,setUser] = useState(null);
 const [shipStatePlace, setShipStatePlace] = useState(false);
 const [shipStateDirection, setShipStateDirection] = useState(false);
 const [turn, setTurn] = useState("CPU");
@@ -33,13 +35,34 @@ const [mainMenu, setmainMenu]= useState(true);
     <div className="App">
       
        <img src={logo}  width="25%" height="25%" class="logo" alt="Bison Boggle Logo" /> 
-      <h1 id="">BattleShip</h1> 
+       { user===null ?
+       
+       <h1 id="">BattleShip</h1> :<h1 id="">Welcome to the  Battleship  {user.displayName}</h1>
+
+          
+       }
+      
 
       {mainMenu===true &&
+      
+      <h5>
+        <p >
         <Button variant="outlined" id="play-button" onClick={()=>setmainMenu(false)} style={{color:"black", backgroundColor:"white", fontWeight:"bold"}}>
         Play vs CPU
         </Button>
+        </p>
+        
+       
+      </h5>
+      
       }
+      {mainMenu ===true & user === null ?
+       <p >
+       <LoginButton setUser={setUser}/>
+      </p>:null
+
+      }
+
     
       {mainMenu===false ?
       <p>
