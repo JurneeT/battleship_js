@@ -25,68 +25,88 @@ const [shipStatePlace, setShipStatePlace] = useState(false);
 const [shipStateDirection, setShipStateDirection] = useState(false);
 const [turn, setTurn] = useState("CPU");
 const [start, setStart] = useState(false);
-
+const [mainMenu, setmainMenu]= useState(true);
 
   return (
-    <body style={{
-      backgroundColor:  "lightskyblue"}}>
+    
 
     <div className="App">
        <img src={logo}  width="25%" height="25%" class="logo" alt="Bison Boggle Logo" /> 
       <h1 id="">BattleShip</h1> 
+
+      {mainMenu===true &&
+        <Button variant="outlined" id="play-button" onClick={()=>setmainMenu(false)} style={{color:"black", backgroundColor:"white", fontWeight:"bold"}}>
+        Play vs CPU
+        </Button>
+      }
     
+      {mainMenu===false ?
+      <p>
       <SelectShip
       setShipStatePlace={(state) => setShipStatePlace(state)}/>
+        </p>:null
+      }
 
-    {start === false & shipStatePlace === false & shipStateDirection === false ?
+    {start === false & shipStatePlace === false & shipStateDirection === false &mainMenu===false ?
     <h1 id="user-prompt">
-    <div id="prompt">Please select a ship to place</div>
+    <p id="prompt">Please select a ship to place</p>
     </h1>:null
     }
-    {shipStatePlace === true & shipStateDirection === false ?
+    {shipStatePlace === true & shipStateDirection === false &mainMenu===false ?
     <h1 id="user-prompt">
-    <div id="prompt">Select a start space to place your ship</div>
+    <p id="prompt">Select a start space to place your ship</p>
     </h1>:null 
     }
-    {shipStatePlace === false & shipStateDirection === true ?
+    {shipStatePlace === false & shipStateDirection === true &mainMenu===false ?
     <h1 id="user-prompt">
-    <div id="prompt">Select an adjacent space left, right, up, or down to set the direction</div>
+    <p id="prompt">Select an adjacent space left, right, up, or down to set the direction</p>
     </h1>:null 
     }
-    {turn === "user" ?
+    {turn === "user" &mainMenu===false ?
     <h1 id="user-prompt">
-    <div id="prompt">It's your turn! Fire away!!!</div>
+    <p id="prompt">It's your turn! Fire away!!!</p>
     </h1>:null 
     }
-    {turn === "CPU" & start === true ?
+    {turn === "CPU" & start === true  &mainMenu===false?
     <h1 id="user-prompt">
-    <div id="prompt">CPU is firing!!!</div>
+    <p id="prompt">CPU is firing!!!</p>
     </h1>:null 
     }
-
+    {mainMenu===false ?
+    <p  >
       <PlayGame
       setTurn={(state) => setTurn(state)}
       turn={(turn)}
       setStart={(state) => setStart(state)}/>
-      
-  <div className="Input-select-size">
-  </div>
+    </p>:null
+    }
+  
 
-  {turn === "CPU" && <PlayerGrid
+  {turn === "CPU" &mainMenu===false ?
+  <p >
+  <PlayerGrid
    setShipStatePlace={(state) => setShipStatePlace(state)} 
    setShipStateDirection={(state) => setShipStateDirection(state)}
    shipStatePlace={(shipStatePlace)}
    shipStateDirection={(shipStateDirection)}
-   />}
-   {turn === "user" && <CPUGrid/>}
+   />
+   </p>:null
+   }
+   {turn === "user" &mainMenu===false?
+   <p > 
+     <CPUGrid/>
+     </p>:null
+   
+   }
    
    
-
-    <div><SwapButton
+   {mainMenu===false?
+    <p><SwapButton
     setTurn={(state) => setTurn(state)}
-    turn={(turn)}/></div>
+    turn={(turn)}/></p>:null
+   }
     </div>
-    </body>
+    
   );
 }
 
