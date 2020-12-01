@@ -57,7 +57,7 @@ function SelectShip({setShipStatePlace}) {
             {cruiserBtnEnabled === true ?
             
             <Button  className="ship-button" mt={10} variant="outlined" id="cruiser" onClick={selectShip} style={{color: "white", backgroundColor:"orange", fontWeight: "bold"}}>
-            {"BattleShip 5-Nodes"}
+            {"Cruiser 5-Nodes"}
         </Button>:<Button disabled className="ship-button" mt={10} variant="cruiser" id="cruiser" onClick={selectShip} style={{color: "white", backgroundColor:"orange", fontWeight: "bold"}}>
             {"Cruiser 4-Nodes"}
         </Button>
@@ -66,7 +66,7 @@ function SelectShip({setShipStatePlace}) {
             {subBtnEnabled === true ?
             
             <Button  className="ship-button" mt={10} variant="outlined" id="sub" onClick={selectShip} style={{color: "white", backgroundColor:"green", fontWeight: "bold"}}>
-            {"BattleShip 5-Nodes"}
+            {"Sub 5-Nodes"}
         </Button>:<Button disabled className="ship-button" mt={10} variant="outlined" id="sub" onClick={selectShip} style={{color: "white", backgroundColor:"green", fontWeight: "bold"}}>
             {"Sub 3-Nodes"}
         </Button>
@@ -75,7 +75,7 @@ function SelectShip({setShipStatePlace}) {
             {destroyerBtnEnabled === true ?
             
             <Button  className="ship-button" mt={10} variant="outlined" id="destroyer" onClick={selectShip} style={{color: "white", backgroundColor:"#663300", fontWeight: "bold"}}>
-            {"BattleShip 5-Nodes"}
+            {"Destroyer 5-Nodes"}
         </Button>:<Button disabled className="ship-button" mt={10} variant="destroyer" id="battleship" onClick={selectShip} style={{color: "white", backgroundColor:"#663300", fontWeight: "bold"}}>
             {"Destroyer 2-Nodes"}
         </Button>
