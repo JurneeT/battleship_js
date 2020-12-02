@@ -82,9 +82,6 @@ const [location, setLocation] = useState(0);
    setShipStateDirection={(state) => setShipStateDirection(state)}
    shipStatePlace={(shipStatePlace)}
    shipStateDirection={(shipStateDirection)}
-   cpuhit={(cpuhit)}
-   cpumiss={(cpumiss)}
-   location={(location)}
    />}
    {turn === "user" && <CPUGrid
    />}
