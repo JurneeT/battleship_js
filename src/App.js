@@ -1,592 +1,136 @@
 import logo from './logo.png';
 import './App.css';
-import { Grid } from '@material-ui/core';
-import { MenuItem } from '@material-ui/core';
-import { Paper } from '@material-ui/core';
-import { Button } from '@material-ui/core';
-import { FormControl } from '@material-ui/core';
-import { Select } from '@material-ui/core';
-import { FormHelperText } from '@material-ui/core';
-
 import SelectShip from './ships.js'
-import { Box } from '@material-ui/core';
+import PlayerGrid from './cell.js';
+import React, { useState } from 'react';
+import PlayGame from './playGame.js';
+import SwapButton from './swapTurn';
+import CPUGrid from './cpuBoard';
+import LoginButton from './login_button.js'
+import {Button} from '@material-ui/core'
+
+
+
+let start = 0;
+let dir = 0;
 
 function App() {
+  const [shipStatePlace, setShipStatePlace] = useState(false);
+  const [shipStateDirection, setShipStateDirection] = useState(false);
+  const [turn, setTurn] = useState("CPU");
+  const [start, setStart] = useState(false);
+const [mainMenu, setmainMenu]= useState(true);
+const [user, setUser]= useState(null);
+
+
+
+const [location, setLocation] = useState(0);
+const [cpumiss, setCPUMiss] = useState(false);
+const [cpuhit, setCPUHit] = useState(false);
+
+
   return (
-    <body style={{
-      backgroundColor:  "#a6ccf2	"}}>
+    
 
     <div className="App">
        <img src={logo}  width="25%" height="25%" class="logo" alt="Bison Boggle Logo" /> 
-      <h1 id="">Battle Ship</h1> 
+      
+      
+       {user===null?
+      <h1 id="">BattleShip</h1>: <h1 id="">Welcome to BattleShip, {user.displayName}</h1>
+      }
+
+
+      {mainMenu===true &&
+      
+      <h5>
+        <p >
+        <Button variant="outlined" id="play-button" onClick={()=>setmainMenu(false)} style={{color:"black", backgroundColor:"white", fontWeight:"bold"}}>
+        Play vs CPU
+        </Button>
+        </p>
+        
+       
+      </h5>
+      
+      }
+      {mainMenu ===true & user === null ?
+       <p >
+       <LoginButton setUser={setUser}/>
+      </p>:null
+
+      }
     
-      <SelectShip/>
+    {mainMenu===false ?
+    <SelectShip
+      setShipStatePlace={(state) => setShipStatePlace(state)}/>:null
+    }
+      
+
+    {start === false & shipStatePlace === false & shipStateDirection === false &mainMenu ===false?
+    <h1 id="user-prompt">
+    <div id="prompt">Please select a ship to place</div>
+    </h1>:null
+    }
+    {shipStatePlace === true & shipStateDirection === false ?
+    <h1 id="user-prompt">
+    <div id="prompt">Select a start space to place your ship</div>
+    </h1>:null 
+    }
+    {shipStatePlace === false & shipStateDirection === true ?
+    <h1 id="user-prompt">
+    <div id="prompt">Select an adjacent space left, right, up, or down to set the direction</div>
+    </h1>:null 
+    }
+    {turn === "user" ?
+    <h1 id="user-prompt">
+    <div id="prompt">It's your turn! Fire away!!!</div>
+    </h1>:null 
+    }
+    {turn === "CPU" & start === true ?
+    <h1 id="user-prompt">
+    <div id="prompt">CPU is firing!!!</div>
+    </h1>:null 
+    }
+    {mainMenu===false ?
+    <p >
+        <PlayGame setTurn={(state) => setTurn(state)}
+      turn={(turn)}
+      setStart={(state) => setStart(state)}
+      start={(start)}/>
+      </p>:null
+  }
+      
+      
+      
       
   <div className="Input-select-size">
   </div>
+  {cpuhit === true & turn === "CPU" ?
+              <h1>CPU HIT your ship at cell ({location})</h1>: cpumiss === true & turn === "CPU"?
+              <h1>CPU MISSED at cell ({location})</h1>:null
+              }
 
+  {turn === "CPU" &mainMenu ===false? <PlayerGrid
+   setShipStatePlace={(state) => setShipStatePlace(state)} 
+   setShipStateDirection={(state) => setShipStateDirection(state)}
+   shipStatePlace={(shipStatePlace)}
+   shipStateDirection={(shipStateDirection)}
+   />:null}
 
-   <div className="Board-div">
-    <Grid container spacing={24} justify="center">
-        <Grid item xs={12}>
-           <Grid container spacing={1} justify="space-around">
-             <Grid item xs={1} className="Tile" onClick={()=>alert("hi")}>
-               <Paper elevation={4}>
-                   1
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   2
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   3
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   4
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   5
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   6
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   7
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   8
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   9
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   10
-               </Paper>
-             </Grid>
-           </Grid>
-        </Grid>
-        <Grid item xs={12}>
-
-        <Grid container spacing={1} justify="space-around">
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   11
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   12
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   13
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   14
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   15
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   16
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   17
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   18
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   19
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   20
-               </Paper>
-             </Grid>
-           </Grid>
-        </Grid>
-        <Grid item xs={12}>
-
-        <Grid container spacing={1} justify="space-around">
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   21
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   22
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   23
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   24
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   25
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   26
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   27
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   28
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   29
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   30
-               </Paper>
-             </Grid>
-           </Grid>
-        </Grid>
-        <Grid item xs={12}>
-
-        <Grid container spacing={1} justify="space-around">
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   31
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   32
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   33
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   34
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   35
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   36
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   37
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   38
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   39
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   40
-               </Paper>
-             </Grid>
-           </Grid>
-        </Grid>
-        <Grid item xs={12}>
-
-        <Grid container spacing={1} justify="space-around">
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   41
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   42
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   43
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   44
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   45
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   46
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   47
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   48
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   49
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   50
-               </Paper>
-             </Grid>
-           </Grid>
-        </Grid>
-        <Grid item xs={12}>
-
-        <Grid container spacing={1} justify="space-around">
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   51
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   52
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   53
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   54
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   55
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   56
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   57
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   58
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   59
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   60
-               </Paper>
-             </Grid>
-           </Grid>
-        </Grid>
-        <Grid item xs={12}>
-
-        <Grid container spacing={1} justify="space-around">
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   61
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   62
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   63
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   64
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   65
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   66
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   67
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   68
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   69
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   70
-               </Paper>
-             </Grid>
-           </Grid>
-        </Grid>
-        <Grid item xs={12}>
-
-        <Grid container spacing={1} justify="space-around">
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   71
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   72
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   73
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   74
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   75
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   76
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   77
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   78
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   79
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   80
-               </Paper>
-             </Grid>
-           </Grid>
-        </Grid>
-        <Grid item xs={12}>
-
-        <Grid container spacing={1} justify="space-around">
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   81
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   82
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   83
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   84
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   85
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   86
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   87
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   88
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   89
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   90
-               </Paper>
-             </Grid>
-           </Grid>
-        </Grid>
-        <Grid item xs={12}>
-
-        <Grid container spacing={1} justify="space-around">
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   91
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   92
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   93
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   94
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   95
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   96
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   97
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   98
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   99
-               </Paper>
-             </Grid>
-             <Grid item xs={1} className="Tile">
-               <Paper elevation={4}>
-                   100
-               </Paper>
-             </Grid>
-           </Grid>
-        </Grid>
-    </Grid>
-    <Button id="swap-turn" variant="outlined">
-      {"Change Turn"}
-    </Button> 
-
+   {turn === "user" &mainMenu ===false? <CPUGrid/>:null}
+   
+   
+{mainMenu ===false?
+    <p><SwapButton
+    setTurn={(state) => setTurn(state)}
+    setCPUHit={(state) => setCPUHit(state)}
+    setCPUMiss={(state) => setCPUMiss(state)}
+    setLocation={(state) => setLocation(state)}
+    turn={(turn)}/></p>:null
+    }
     </div>
-
- 
-    </div>
-    </body>
+    
   );
 }
 
