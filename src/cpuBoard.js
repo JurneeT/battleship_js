@@ -78,43 +78,48 @@ function removePeg(num){
 
 function CPUGrid(){
 
-  // const [position, setPosition] = useState(0);
-  // const [miss, setMiss] = useState(false);
-  // const [hit, setHit] = useState(false);
+  const [position, setPosition] = useState(0);
+  const [miss, setMiss] = useState(false);
+  const [hit, setHit] = useState(false);
 
   
 
   // function that reads in guesses from player and CPU
   function checkHit(pos){
 
-    position = pos;
+    //position = pos;
+    setPosition(pos)
     //change gameBoard to cpuBoard
     // If the player's guess is invalid
     if(Guess.playerGuesses.includes(pos) === true){
-      alert("You Already Shot Here");
+      //alert("You Already Shot Here");
       //checkHit();
     }// If the player's guess is valid
     else if (Guess.playerGuesses.includes(pos) === false){
-      alert(position)
+      //alert(position)
       if (cpuBoard[pos - 1] == null) // If the the cell is empty
       {
-        miss=true;
-        hit=false;
+       // miss=true;
+        setMiss(true)
+        //hit=false;
+        setHit(false)
         Guess.playerGuesses.push(pos);
         Guess.prevMisses.push(pos);
         //alert("This is the prev misses array: " + Guess.prevMisses);
       }else if (cpuBoard[pos - 1] !== null) // if the cell is occupied
     {// increment hit count and check if win
-      alert(position)
-      alert(1)
+      //alert(position)
+      //alert(1)
       playerHitCount += 1;
       //alert("Hit count: " + playerHitCount);
-      hit=true;
-      miss=false
+      //hit=true;
+      setHit(true)
+      //miss=false
+      setMiss(false)
       removePeg(pos);
       win = winCheck();
       if (win === true){
-        alert("YOU WIN!");
+        //alert("YOU WIN!");
       }else{ //if not a win
         Guess.prevHits.push(pos);
         Guess.playerGuesses.push(pos);
