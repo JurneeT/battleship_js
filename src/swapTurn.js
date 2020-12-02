@@ -49,19 +49,22 @@ function checkHit(){
 
     cell = generate_random_attack(Guess.cpuHits, Guess.cpuMisses)
     if (gameBoard[cell - 1] === null){
+      setLocation(cell);
       Guess.cpuMisses.push(cell);
       setCPUMiss(true);
       setCPUHit(false);
       //alert("cpumiss " + cpumiss);
     }else if (gameBoard[cell - 1] !== null){
+      setLocation(cell);
       Guess.cpuHits.push(cell);
       window.cpuHitCount += 1;
       setCPUHit(true);
       setCPUMiss(false);
       //remove peg from ship
+      
       removePeg(cell);
+      //checkSunk(cell);
       //check if ship is sunk
-      checkSunk();
       win = winCheck();
       if (win === true)
       {
@@ -72,7 +75,7 @@ function checkHit(){
         Guess.cpuGuesses.push(cell);
       }    
     }
-    setLocation(cell);
+    //setLocation(cell);
 }
 function removePeg(num){
     if (Player.ships.battleship.pegs.includes(num)){
@@ -90,17 +93,17 @@ function removePeg(num){
       }
 }
 
-function checkSunk(){
-    if (Player.ships.battleship.pegs.length === 0){
-      alert("They sunk your Battleship!");
-    }else if (Player.ships.cruiser.pegs.length === 0){
-      console.log("They sunk your Cruiser!");
-    }else if (Player.ships.sub.pegs.length === 0){
-      alert("They sunk your Sub");
-    }else if (Player.ships.destroyer.pegs.length === 0){
-      alert("They sunk your Destroyer");
-    }
-  }
+// function checkSunk(cell){
+//     if (Player.ships.battleship.pegs.length === 0 && Player.ships.battleship.pegs.includes(cell)){
+//       alert("They sunk your Battleship!");
+//     }else if (Player.ships.cruiser.pegs.length === 0){
+//       console.log("They sunk your Cruiser!");
+//     }else if (Player.ships.sub.pegs.length === 0){
+//       alert("They sunk your Sub");
+//     }else if (Player.ships.destroyer.pegs.length === 0){
+//       alert("They sunk your Destroyer");
+//     }
+//   }
 
 function swapTurn({setTurn, turn}) {
     

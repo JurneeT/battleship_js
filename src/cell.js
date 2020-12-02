@@ -195,8 +195,8 @@ function PlayerGrid({setShipStatePlace, setShipStateDirection, shipStatePlace, s
         return(
           
             <div className="Board-div">
-              {cpuhit === true ?
-              <h1>CPU HIT your ship at cell ({location})</h1>: cpumiss === true ?
+              {cpuhit === true & cpumiss===false ?
+              <h1>CPU HIT your ship at cell ({location})</h1>: cpumiss === true &cpuhit===false ?
               <h1>CPU MISSED at cell ({location})</h1>:null
               }
               
